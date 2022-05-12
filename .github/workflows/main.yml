@@ -1,0 +1,32 @@
+# This is a basic workflow to help you get started with Actions
+name: Codeql-test
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  # This workflow contains a single job called "actions-sync"
+  actions-sync:
+    # The type of runner that the job will run on
+    runs-on: linux
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        repository: actions/runner
+  # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with: 
+        languages: csharp
+
+      # Autobuild attempts to build any compiled languages (C/C++, C#, or Java).
+      # If this step fails, then you should remove it and run the build manually (see below).
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v1
+      # uses: actions/setup-dotnet@v1
+      # - run: /usr/lib/mono/msbuild/15.0/bin/msbuild.dll actions/runner/src/ActionsRunner.sln 
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
